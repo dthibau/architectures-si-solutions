@@ -1,0 +1,33 @@
+version: '3'
+services:
+  archi-si-postgresql:
+    image: postgres:14.1
+    volumes:
+      - archi-si_db:/var/lib/postgresql
+      - archi-si_data:/var/lib/postgresql/data
+    networks:
+      - back
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
+
+  pgadmin4:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "81:80"
+    depends_on:
+      - archi-si-postgresql
+    networks:
+      - back
+volumes:
+  archi-si_data:
+  archi-si_db:
+
+networks:
+  back:
+
