@@ -1,0 +1,171 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- description: Generated server url
+  url: http://localhost:8080/api
+paths:
+  /produits:
+    get:
+      operationId: findAll
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Produit'
+                type: array
+          description: OK
+      tags:
+      - produit
+      x-accepts: application/json
+      x-tags:
+      - tag: produit
+    post:
+      operationId: createProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Produit'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produit'
+          description: OK
+      tags:
+      - produit
+      x-contentType: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: produit
+  /openapi.yaml:
+    get:
+      operationId: openapiYaml
+      responses:
+        "200":
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: string
+          description: OK
+      tags:
+      - home-controller
+      x-accepts: application/vnd.oai.openapi
+      x-tags:
+      - tag: home-controller
+  /openapi.json:
+    get:
+      operationId: openapiJson
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: OK
+      tags:
+      - home-controller
+      x-accepts: application/json
+      x-tags:
+      - tag: home-controller
+  /produits/fournisseur/{fournisseurId}:
+    get:
+      operationId: findByFournisseur
+      parameters:
+      - explode: false
+        in: path
+        name: fournisseurId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Produit'
+                type: array
+          description: OK
+      tags:
+      - produit
+      x-accepts: application/json
+      x-tags:
+      - tag: produit
+components:
+  schemas:
+    Dimension:
+      example:
+        longueur: 5.637377
+        largeur: 2.302136
+        hauteur: 5.962134
+      properties:
+        hauteur:
+          format: float
+          type: number
+        longueur:
+          format: float
+          type: number
+        largeur:
+          format: float
+          type: number
+      type: object
+    Fournisseur:
+      example:
+        reference: reference
+        id: 7
+        nom: nom
+      properties:
+        id:
+          format: int64
+          type: integer
+        reference:
+          type: string
+        nom:
+          type: string
+      type: object
+    Produit:
+      example:
+        reference: reference
+        prixUnitaire: 6.0274563
+        description: description
+        fournisseur:
+          reference: reference
+          id: 7
+          nom: nom
+        id: 0
+        availability: 1
+        nom: nom
+        dimension:
+          longueur: 5.637377
+          largeur: 2.302136
+          hauteur: 5.962134
+      properties:
+        id:
+          format: int64
+          type: integer
+        reference:
+          type: string
+        nom:
+          type: string
+        description:
+          type: string
+        prixUnitaire:
+          format: float
+          type: number
+        availability:
+          format: int32
+          type: integer
+        dimension:
+          $ref: '#/components/schemas/Dimension'
+        fournisseur:
+          $ref: '#/components/schemas/Fournisseur'
+      type: object
