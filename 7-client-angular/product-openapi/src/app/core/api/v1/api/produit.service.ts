@@ -32,7 +32,7 @@ import { Configuration }                                     from '../configurat
 })
 export class ProduitService {
 
-    protected basePath = 'http://localhost:9000';
+    protected basePath = 'http://localhost:8082/api';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;

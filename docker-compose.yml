@@ -1,0 +1,20 @@
+version: '2.2'
+services:
+  front-end:
+    build: ./7-client-angular/product-openapi/
+    networks:
+     - openapi
+    ports:
+     - "82:80"
+  backend:
+    image: openapi-spring:v0
+    networks:
+     - openapi
+    ports:
+     - "8082:8080"
+
+
+
+networks:
+  openapi:
+
