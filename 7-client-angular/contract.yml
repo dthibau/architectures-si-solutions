@@ -1,0 +1,131 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8080/api
+    description: Generated server url
+
+paths:
+  /produits:
+    get:
+      tags:
+        - produit
+      operationId: findAll
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produit'
+    post:
+      tags:
+        - produit
+      operationId: createProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Produit'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produit'
+  /openapi.yaml:
+    get:
+      tags:
+        - home-controller
+      operationId: openapiYaml
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: string
+  /openapi.json:
+    get:
+      tags:
+        - home-controller
+      operationId: openapiJson
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /produits/fournisseur/{fournisseurId}:
+    get:
+      tags:
+        - produit
+      operationId: findByFournisseur
+      parameters:
+        - name: fournisseurId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produit'
+components:
+  schemas:
+    Dimension:
+      type: object
+      properties:
+        hauteur:
+          type: number
+          format: float
+        longueur:
+          type: number
+          format: float
+        largeur:
+          type: number
+          format: float
+    Fournisseur:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        reference:
+          type: string
+        nom:
+          type: string
+    Produit:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        reference:
+          type: string
+        nom:
+          type: string
+        description:
+          type: string
+        prixUnitaire:
+          type: number
+          format: float
+        availability:
+          type: integer
+          format: int32
+        dimension:
+          $ref: '#/components/schemas/Dimension'
+        fournisseur:
+          $ref: '#/components/schemas/Fournisseur'
