@@ -40,7 +40,10 @@
 				<td th:text="${p.prixUnitaire}">23.32</td>
 				<td th:text="${p.dimension}">23.32</td>
 				<td><a href="fournisseurDetails.html"
-					th:href="@{/produits/edit(produitId=${p.id})}">Editer</a></td>
+					th:href="@{/produits/edit(produitId=${p.id})}">Editer</a><br/>
+					<a href="deleteProduit.html"
+					th:href="@{/produits/delete(produitId=${p.id})}">Supprimmer</a>
+					</td>
 			</tr>
 		</table>
 	</div>
