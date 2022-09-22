@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.constraints.Length;
+
 import lombok.Data;
 
 @Entity
@@ -18,6 +20,7 @@ public class Produit {
 	
 	private String reference;
 	
+	@Length(min = 5)
 	private String nom;
 	
 	private String description;

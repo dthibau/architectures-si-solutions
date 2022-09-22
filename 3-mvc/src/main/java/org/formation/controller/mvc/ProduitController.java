@@ -58,4 +58,18 @@ public class ProduitController {
 		return "redirect:/produits";
 		
 	}
+	
+	@GetMapping("/delete")
+	public String showConfirmation(@RequestParam("produitId") long produitId, Model model) {
+		model.addAttribute("produit", produitRepository.findById(produitId).orElseThrow(() -> new EntityNotFoundException()));
+		return "produitDelete";
+	}
+	
+	@PostMapping("/delete") 
+	public String deleteProduit(@RequestParam("id") long produitId, Model model) {
+		
+		produitRepository.deleteById(produitId);
+		
+		return "redirect:/produits";
+	}
 }

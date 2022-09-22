@@ -14,9 +14,14 @@
 		<form th:action="@{/fournisseurs/save}" th:object="${fournisseur}"
 			method="post">
 			<div class="form-group">
-				<label for="referenceInput">Référence</label> <input type="text"
+				<label for="referenceInput">Référence</label> 
+				<input type="text" th:if="${fournisseur.reference}"
+					class="form-control" readonly id="referenceInput"
+					aria-describedby="referenceHelp" th:field="*{reference}"> 
+				<input type="text" th:if="!${fournisseur.reference}"
 					class="form-control" id="referenceInput"
-					aria-describedby="referenceHelp" readonly th:field="*{reference}"> <small
+					aria-describedby="referenceHelp" th:field="*{reference}"> 			
+				<small
 					id="referenceHelp" class="form-text text-muted">La
 					référence ne peut pas être modifiée.</small>
 			</div>
@@ -26,7 +31,7 @@
 				<small id="referenceHelp" class="form-text text-muted">Limité
 					à 255 caractères.</small>
 			</div>
-<input type="hidden" id="idInput" th:field="*{id}">
+			<input type="hidden" id="idInput" th:field="*{id}">
 			<div>
 				<input type="submit" value="Save" />
 			</div>

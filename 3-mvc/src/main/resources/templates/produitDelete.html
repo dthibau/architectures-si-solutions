@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="fragments :: header"></div>
+
+<div th:insert="fragments :: navbar"></div>
+
+<div class="container py-5">
+	<div class="row">
+	    Voulez vous réellement supprimmer le produit <span th:text="${produit.nom}">nom</span> ?
+	</div>
+	<div class="col-sm">
+		<form th:action="@{/produits/delete}" th:object="${produit}"
+			method="post">
+			
+<input type="hidden" id="produitId" th:field="*{id}">
+			<div>
+				<input class="btn btn-primary"  type="submit" value="Enregistrer" />
+			</div>
+		</form>
+		</div>
+		<div class="col-sm"></div>
+	</div>
+</div>

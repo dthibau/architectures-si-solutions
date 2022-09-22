@@ -26,6 +26,12 @@ public class FournisseurController {
 		return "fournisseurs";
 	}
 	
+	@GetMapping("/newFournisseur")
+	public String newFournisseur(Model model) {		
+		model.addAttribute("fournisseur", new Fournisseur());
+		return "fournisseurEdit";
+	}
+	
 	@GetMapping("/edit")
 	public String editFournisseur(@RequestParam("fournisseurId") long fournisseurId, Model model) {
 		model.addAttribute("fournisseur", fournisseurRepository.findById(fournisseurId).orElseThrow(() -> new EntityNotFoundException()));
