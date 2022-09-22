@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -29,6 +31,7 @@ public class Produit {
 	@Embedded
 	private Dimension dimension;
 	
+	//@JsonIgnore //pour le deserialiser - ça n apparait plus sur le navigateur 
 	@ManyToOne
 	private Fournisseur fournisseur;
 	

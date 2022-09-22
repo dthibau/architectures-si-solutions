@@ -13,8 +13,10 @@ import org.formation.model.Produit;
 import org.formation.model.ProduitRepository;
 import org.formation.service.ImportProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProduitRestController {
 
 	@Autowired
-	ProduitRepository produitRepository;
+	ProduitRepository produitRepository; //permet de faire des ops de bases de sql
+	//nous permet de faire delete, post, ...
 
 	@Autowired
 	FournisseurRepository fournisseurRepository;
@@ -62,6 +65,28 @@ public class ProduitRestController {
 
 		return new ResponseEntity<>(importProduitService.importLines(csvFile), HttpStatus.ACCEPTED);
 
+	}
+	
+	
+	
+	@DeleteMapping(value = "/{id}")//on herite deja de api/produits
+    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
+    	//dans un delete on ne veut rien return d ou le Void (un objet)
+		  //Mais on ne veut plus voir les erreurs de type 500 :
+	       //on utilise un try catch 
+		try {
+				//on essaie de supprimer
+		       produitRepository.deleteById(id);
+		       
+		       return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);//pour lui dire n attend pas de corps de reponse en retour
+		       //on renvoie que un statut 
+		      
+		}catch (EmptyResultDataAccessException e) {
+			
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		}
+
+       
 	}
 
 }
